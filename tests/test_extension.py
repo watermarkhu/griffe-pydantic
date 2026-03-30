@@ -86,6 +86,13 @@ def test_extension(analysis: str) -> None:
         schema = package.classes["ExampleModel"].extra["griffe_pydantic"]["schema"]
         assert schema.startswith('{\n  "description"')
 
+        fields = package.classes["ExampleModel"].extra["griffe_pydantic"]["fields"]()
+        assert "field_without_default" in fields
+        assert "field_plain_with_validator" in fields
+        assert "field_with_validator_and_alias" in fields
+        assert "field_with_constraints_and_description" in fields
+        assert "regular_method" not in fields
+
         assert "AliasClass" in package.classes
         assert package.classes["AliasClass"].labels == {"pydantic-model"}
 
