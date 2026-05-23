@@ -92,5 +92,5 @@ def _process_class(obj: type, cls: Class, *, processed: set[str], schema: bool =
                     lineno=0,
                     endlineno=0,
                 )
-                cls.members[field_name] = attr  # ty: ignore[invalid-assignment]
+                cls.set_member(field_name, attr)
                 _process_attribute(field_info, attr, cls, processed=processed)
